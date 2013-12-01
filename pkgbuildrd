@@ -1,0 +1,26 @@
+# Maintainer: Ryan Smith <the4swordz@gmail.com>
+pkgname=gitremote
+pkgver=0.0.0
+pkgrel=1
+pkgdesc="Access remote GitHub repos"
+url="https://github.com/cameronbwhite/GitRemote"
+arch=('any')
+license=('BSD')
+depends=('python2-pyqt4')
+makedepends=('python2-pip')
+source=("http://www.server.tld/${pkgname}-${pkgver}.tar.gz"
+        "foo.desktop")
+md5sums=('a0afa52d60cea6c0363a2a8cb39a4095'
+         'a0afa52d60cea6c0363a2a8cb39a4095')
+
+build() {
+  pip install pygithub
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
+
+# vim:set ts=2 sw=2 et:
